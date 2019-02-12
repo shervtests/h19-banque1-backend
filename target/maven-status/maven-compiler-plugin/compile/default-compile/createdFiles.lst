@@ -1,0 +1,16 @@
+com\grokonez\spring\restapi\mongodb\repo\UserRepository.class
+com\grokonez\spring\restapi\mongodb\model\User.class
+com\grokonez\spring\restapi\mongodb\bean\UserBean.class
+com\grokonez\spring\restapi\mongodb\config\MyRealm.class
+com\grokonez\spring\restapi\mongodb\bean\ResponseBean.class
+com\grokonez\spring\restapi\mongodb\model\AuditModel.class
+com\grokonez\spring\restapi\mongodb\util\JWTUtil.class
+com\grokonez\spring\restapi\mongodb\model\Customer.class
+com\grokonez\spring\restapi\mongodb\config\DataSource.class
+com\grokonez\spring\restapi\mongodb\config\JWTFilter.class
+com\grokonez\spring\restapi\mongodb\config\JWTToken.class
+com\grokonez\spring\restapi\mongodb\config\ShiroConfig.class
+com\grokonez\spring\restapi\mongodb\repo\CustomerRepository.class
+com\grokonez\spring\restapi\mongodb\SpringBootRestMongoDbApplication.class
+com\grokonez\spring\restapi\mongodb\controller\CustomerController.class
+com\grokonez\spring\restapi\mongodb\service\UserService.class

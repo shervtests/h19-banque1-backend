@@ -1,0 +1,4 @@
+com\grokonez\spring\restapi\mongodb\repo\CustomerRepository.class
+com\grokonez\spring\restapi\mongodb\model\Customer.class
+com\grokonez\spring\restapi\mongodb\SpringBootRestMongoDbApplication.class
+com\grokonez\spring\restapi\mongodb\controller\CustomerController.class
