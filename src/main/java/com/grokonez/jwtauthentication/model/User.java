@@ -1,8 +1,10 @@
 package com.grokonez.jwtauthentication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -76,9 +79,9 @@ public class User{
     @Size(min=6, max = 100)
     private String answer2;
 
-    private String accountno;
-    private int amount;
-    private String Status;
+   /* private String accountno;
+    private int amount;*/
+    //private String Status;
    
     
     private String address;
@@ -90,20 +93,33 @@ public class User{
     private String landline;
     private String mobile;
     
-    private String creditcardno;
+   /* private String creditcardno;
     private String cvv;
     
     private String expirydate;
     
     private int creditbalanceavailable;
-    private int creditbalanceowned;
+    private int creditbalanceowned;*/
     
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", 
     	joinColumns = @JoinColumn(name = "user_id"), 
     	inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
+    
+     @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private UserCreditCard userCreditCard;
+    
+     
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private UserAccount userAccount; 
+     
     public User() {}
 
     public User(String firstname,String lastname , String username, String email, String question1, String answer1, String question2, String answer2, String password) {
@@ -119,9 +135,15 @@ public class User{
         
     }
 
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
 
-    
-    
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+ 
 
     public String getQuestion2() {
 		return question2;
@@ -212,7 +234,7 @@ public class User{
         this.roles = roles;
     }
 
-    public String getAccountno() {
+   /* public String getAccountno() {
         return accountno;
     }
 
@@ -228,13 +250,13 @@ public class User{
         this.amount = amount;
     }
 
-    public String getStatus() {
+    /*public String getStatus() {
         return Status;
     }
 
     public void setStatus(String Status) {
         this.Status = Status;
-    }
+    }*/
 
     public String getAddress() {
         return address;
@@ -292,7 +314,7 @@ public class User{
         this.mobile = mobile;
     }
 
-    public String getCreditcardno() {
+  /*  public String getCreditcardno() {
         return creditcardno;
     }
 
@@ -332,6 +354,14 @@ public class User{
 
     public void setExpirydate(String expirydate) {
         this.expirydate = expirydate;
+    }*/
+
+    public UserCreditCard getUserCreditCard() {
+        return userCreditCard;
+    }
+
+    public void setUserCreditCard(UserCreditCard userCreditCard) {
+        this.userCreditCard = userCreditCard;
     }
     
     

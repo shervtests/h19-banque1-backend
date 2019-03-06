@@ -39,6 +39,8 @@ import com.grokonez.jwtauthentication.message.response.JwtResponse;
 import com.grokonez.jwtauthentication.model.Role;
 import com.grokonez.jwtauthentication.model.RoleName;
 import com.grokonez.jwtauthentication.model.User;
+import com.grokonez.jwtauthentication.model.UserAccount;
+import com.grokonez.jwtauthentication.model.UserCreditCard;
 import com.grokonez.jwtauthentication.repository.RoleRepository;
 import com.grokonez.jwtauthentication.repository.UserRepository;
 import com.grokonez.jwtauthentication.security.jwt.JwtProvider;
@@ -162,7 +164,8 @@ public class AuthRestAPIs {
 		User user = new User(signUpRequest.getFirstname(),signUpRequest.getLastname(), signUpRequest.getUsername(), signUpRequest.getEmail(),
 				signUpRequest.getQuestion1(), signUpRequest.getAnswer1(), signUpRequest.getQuestion2(),
 				signUpRequest.getAnswer2(), encoder.encode(signUpRequest.getPassword()));
-
+                UserCreditCard userCreditCard = new UserCreditCard();
+                UserAccount userAccount = new UserAccount();
 				user.setZip(signUpRequest.getZip());
 				user.setProvince(signUpRequest.getProvince());
 				user.setCity(signUpRequest.getCity());
@@ -171,13 +174,13 @@ public class AuthRestAPIs {
 				user.setLandline(signUpRequest.getLandline());
                 user.setAddress(signUpRequest.getAddress());
                 CreditCardNumberGenerator generator = new CreditCardNumberGenerator();
-                user.setAccountno(generator.generate("111", 8));
-                user.setCreditcardno(generator.generate("11111", 16));
-                user.setCreditbalanceavailable(signUpRequest.getCreditbalanceavailable());
-                user.setCreditbalanceowned(signUpRequest.getCreditbalanceowned());
-                user.setAmount(signUpRequest.getAmount());
-                user.setCvv(generator.generate("", 3));
-				user.setExpirydate(Utils.getYearTimeStampMMYY(3));
+                userAccount.setAccountno(generator.generate("111", 8));
+                userCreditCard.setCreditcardno(generator.generate("11111", 16));
+                userCreditCard.setAmountavailable(signUpRequest.getCreditbalanceavailable());
+                userCreditCard.setAmountowned(signUpRequest.getCreditbalanceowned());
+                userAccount.setAmount(signUpRequest.getAmount());
+                userCreditCard.setCvv(generator.generate("", 3));
+				userCreditCard.setExpiryDate(Utils.getYearTimeStampMMYY(3));
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 
@@ -203,6 +206,12 @@ public class AuthRestAPIs {
 		});
 
 		user.setRoles(roles);
+                user.setUserCreditCard(userCreditCard);
+                user.setUserAccount(userAccount);
+                
+                userCreditCard.setUser(user);
+                userAccount.setUser(user);
+                        
 		userRepository.save(user);
 
 		return ResponseEntity.ok().body("User registered successfully!");

@@ -3,6 +3,8 @@ package com.grokonez.jwtauthentication.security.services;
 import com.grokonez.jwtauthentication.model.Role;
 import com.grokonez.jwtauthentication.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.grokonez.jwtauthentication.model.UserAccount;
+import com.grokonez.jwtauthentication.model.UserCreditCard;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,12 +41,16 @@ public class UserPrinciple implements UserDetails {
 
 	private String mobile;
 
+       private UserCreditCard userCreditCard;
+       private UserAccount userAccount;
 	private String landline;
-	private String creditcarno;
-	private String accountno;
-	private int amount;
-	private int creditbalanceavailable;
-	private int creditbalanceowned;
+	//private String creditcarno;
+	/*private String accountno;
+	private int amount;*/
+        
+        
+	//private int creditbalanceavailable;
+	//private int creditbalanceowned;
 
 	private Collection<? extends GrantedAuthority> authorities;
 
@@ -58,18 +64,18 @@ public class UserPrinciple implements UserDetails {
 
 	private String address;
 
-	public UserPrinciple(Long id, String firstname, String lastname, String username, int amount,
-			int creditbalanceavailable, int creditbalanceowned, String email, String question1, String answer1,
+	public UserPrinciple(Long id, String firstname, String lastname, String username ,
+			 String email, String question1, String answer1,
 			String question2, String answer2, String password, String address, String city, String province, String zip,
-			String country, String mobile, String landline, Collection<? extends GrantedAuthority> authorities) {
+			String country, String mobile, String landline,UserCreditCard userCreditcard,UserAccount userAcouunt, Collection<? extends GrantedAuthority> authorities) {
 
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
-		this.amount = amount;
-		this.creditbalanceavailable = creditbalanceavailable;
-		this.creditbalanceowned = creditbalanceowned;
+		//this.amount = amount;
+		/*this.creditbalanceavailable = creditbalanceavailable;
+		this.creditbalanceowned = creditbalanceowned;*/
 		this.email = email;
 		this.question1 = question1;
 		this.answer1 = answer1;
@@ -91,10 +97,10 @@ public class UserPrinciple implements UserDetails {
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
 		return new UserPrinciple(user.getId(), user.getFirstname(), user.getLastname(), user.getUsername(),
-				user.getAmount(), user.getCreditbalanceavailable(), user.getCreditbalanceowned(), user.getEmail(),
+				 user.getEmail(),
 				user.getQuestion1(), user.getAnswer1(), user.getQuestion2(), user.getAnswer2(), user.getPassword(),
 				user.getAddress(), user.getCity(), user.getProvince(), user.getZip(), user.getCountry(),
-				user.getMobile(), user.getLandline(), authorities);
+				user.getMobile(), user.getLandline(),user.getUserCreditCard(),user.getUserAccount(),authorities);
 	}
 
 	public String getRole() {
@@ -153,15 +159,15 @@ public class UserPrinciple implements UserDetails {
 		this.landline = landline;
 	}
 
-	public String getCreditcarno() {
+	/*public String getCreditcarno() {
 		return creditcarno;
 	}
 
 	public void setCreditcarno(String creditcarno) {
 		this.creditcarno = creditcarno;
-	}
+	}*/
 
-	public String getAccountno() {
+	/*public String getAccountno() {
 		return accountno;
 	}
 
@@ -177,7 +183,7 @@ public class UserPrinciple implements UserDetails {
 		this.amount = amount;
 	}
 
-	public int getCreditbalanceavailable() {
+	/*public int getCreditbalanceavailable() {
 		return creditbalanceavailable;
 	}
 
@@ -191,7 +197,7 @@ public class UserPrinciple implements UserDetails {
 
 	public void setCreditbalanceowned(int creditbalanceowned) {
 		this.creditbalanceowned = creditbalanceowned;
-	}
+	}*/
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -278,6 +284,15 @@ public class UserPrinciple implements UserDetails {
 		return username;
 	}
 
+        public UserCreditCard getUserCreditCard() {
+            return userCreditCard;
+        }
+
+        public void setUserCreditCard(UserCreditCard userCreditCard) {
+            this.userCreditCard = userCreditCard;
+        }
+
+        
 	@Override
 	public String getPassword() {
 		return password;
