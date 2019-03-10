@@ -88,6 +88,8 @@ public class UserPrinciple implements UserDetails {
 		this.zip = zip;
 		this.mobile = mobile;
 		this.landline = landline;
+		this.userAccount = userAccount;
+		this.userCreditCard = userCreditcard;
 
 		this.authorities = authorities;
 	}
