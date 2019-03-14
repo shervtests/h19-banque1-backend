@@ -22,6 +22,7 @@ import javax.persistence.OneToOne;
  * @author smile
  */
 @Entity
+@JsonIgnoreProperties({"transactions","user"})
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
