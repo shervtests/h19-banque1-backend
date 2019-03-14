@@ -19,5 +19,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserCreditCardRepository extends JpaRepository<UserCreditCard, Long> {
-    
+     Optional<UserCreditCard> findByCreditcardno(String creditcardno);
+     Boolean existsByCreditcardno(String creditcardno);
 }
