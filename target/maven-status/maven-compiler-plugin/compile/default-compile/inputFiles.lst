@@ -15,8 +15,10 @@ C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\g
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\message\request\VerifyLogin1.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\security\WebSecurityConfig.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\Utils\CreditCardNumberGenerator.java
+C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\repository\TransactionsRepository.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\model\SearchCriteria.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\specification\UserSpecificationsBuilder.java
+C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\message\request\CreditCardPaymentRequest.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\controller\AuthRestAPIs.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\message\request\VerifyLogin2.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\Utils\Utils.java
@@ -26,4 +28,7 @@ C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\g
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\Utils\SearchOperation.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\controller\TestRestAPIs.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\security\jwt\JwtProvider.java
+C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\message\request\TransferRequest.java
+C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\model\Transactions.java
 C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\specification\UserSpecification.java
+C:\Users\Jeffyjeff\Desktop\GTI525-Projet\h19-banque1-backend\src\main\java\com\grokonez\jwtauthentication\repository\UserAccountRepository.java

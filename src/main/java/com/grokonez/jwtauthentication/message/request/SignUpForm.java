@@ -42,34 +42,35 @@ public class SignUpForm {
     
     private String address;
 
-    private int amount = 0;
-    private int creditbalanceavailable = 0;
-    private int creditbalanceowned =  0;
+    private double amount = 0;
+    private double creditbalanceavailable = 0;
+    private double creditbalanceowned =  0;
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public int getCreditbalanceavailable() {
+    public double getCreditbalanceavailable() {
         return creditbalanceavailable;
     }
 
-    public void setCreditbalanceavailable(int creditbalanceavailable) {
+    public void setCreditbalanceavailable(double creditbalanceavailable) {
         this.creditbalanceavailable = creditbalanceavailable;
     }
 
-    public int getCreditbalanceowned() {
+    public double getCreditbalanceowned() {
         return creditbalanceowned;
     }
 
-    public void setCreditbalanceowned(int creditbalanceowned) {
+    public void setCreditbalanceowned(double creditbalanceowned) {
         this.creditbalanceowned = creditbalanceowned;
     }
 
+ 
     public String getAddress() {
         return address;
     }
