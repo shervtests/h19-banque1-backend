@@ -31,20 +31,29 @@ import com.google.common.base.Joiner;
 import com.grokonez.jwtauthentication.Utils.CreditCardNumberGenerator;
 import com.grokonez.jwtauthentication.Utils.SearchOperation;
 import com.grokonez.jwtauthentication.Utils.Utils;
+import com.grokonez.jwtauthentication.message.request.CreditCardPaymentRequest;
 import com.grokonez.jwtauthentication.message.request.LoginForm;
 import com.grokonez.jwtauthentication.message.request.SignUpForm;
+import com.grokonez.jwtauthentication.message.request.TransferRequest;
 import com.grokonez.jwtauthentication.message.request.VerifyLogin1;
 import com.grokonez.jwtauthentication.message.request.VerifyLogin2;
 import com.grokonez.jwtauthentication.message.response.JwtResponse;
 import com.grokonez.jwtauthentication.model.Role;
 import com.grokonez.jwtauthentication.model.RoleName;
+import com.grokonez.jwtauthentication.model.Transactions;
 import com.grokonez.jwtauthentication.model.User;
 import com.grokonez.jwtauthentication.model.UserAccount;
 import com.grokonez.jwtauthentication.model.UserCreditCard;
 import com.grokonez.jwtauthentication.repository.RoleRepository;
+import com.grokonez.jwtauthentication.repository.UserAccountRepository;
 import com.grokonez.jwtauthentication.repository.UserRepository;
+import com.grokonez.jwtauthentication.repository.TransactionsRepository;
+import com.grokonez.jwtauthentication.repository.UserCreditCardRepository;
 import com.grokonez.jwtauthentication.security.jwt.JwtProvider;
 import com.grokonez.jwtauthentication.specification.UserSpecificationsBuilder;
+import java.util.Optional;
+import org.hibernate.Session;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -65,8 +74,16 @@ public class AuthRestAPIs {
 
 	@Autowired
 	JwtProvider jwtProvider;
-
+       
+        @Autowired
+	TransactionsRepository transRepository;
+        
+        @Autowired
+	UserAccountRepository accountRepository;
 	
+         @Autowired
+	UserCreditCardRepository creditcardRepository;
+        
 	//Use to signin
 
 	@PostMapping("/signin")
@@ -155,7 +172,7 @@ public class AuthRestAPIs {
             System.out.println("numOfSpecial = " + numOfSpecial);
             System.out.println("numOfLetters = " + numOfLetters);
             System.out.println("numOfDigits = " + numOfDigits);
-        	return new ResponseEntity<String>("Fail -> Need a least a 1 number, 1 letter and 1 special ", HttpStatus.BAD_REQUEST);
+        	return new ResponseEntity<String>("Fail -> Need at least a number, a letter and a special character ", HttpStatus.BAD_REQUEST);
         }
 
 
@@ -188,19 +205,19 @@ public class AuthRestAPIs {
 			switch (role) {
 			case "admin":
 				Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not found."));
 				roles.add(adminRole);
 
 				break;
 			case "pm":
 				Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not found."));
 				roles.add(pmRole);
 
 				break;
 			default:
 				Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not found."));
 				roles.add(userRole);
 			}
 		});
@@ -213,8 +230,8 @@ public class AuthRestAPIs {
                 userAccount.setUser(user);
                         
 		userRepository.save(user);
-
-		return ResponseEntity.ok().body("User registered successfully!");
+                
+		return ResponseEntity.ok().body("User registered successfully!" );
 	}
         
         @PreAuthorize("hasRole('ADMIN')")
@@ -234,4 +251,157 @@ public class AuthRestAPIs {
         return userRepository.findAll(spec);
     
     }
+        @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+       @PostMapping("/Transfer")
+	public ResponseEntity<String> TransferFunds(@Valid @RequestBody TransferRequest transferRequest) throws Exception {
+
+		if (!accountRepository.existsByAccountno(transferRequest.getSenderaccountno())) {
+			return new ResponseEntity<String>("Fail -> Sender Account Does Not Exist!", HttpStatus.BAD_REQUEST);
+		}
+
+		if (!accountRepository.existsByAccountno(transferRequest.getReceiveraccountno())) {
+			return new ResponseEntity<String>("Fail -> Receiver Account Does Not Exist!", HttpStatus.BAD_REQUEST);
+		}
+
+	 UserAccount fromaccount = accountRepository.findByAccountno(transferRequest.getSenderaccountno())
+                	.orElseThrow(() ->
+                        new Exception("Sender Account Does Not Exist!"));
+
+
+           UserAccount toaccount = accountRepository.findByAccountno(transferRequest.getReceiveraccountno())
+                	.orElseThrow(() ->
+                        new Exception("Receiver Account Does Not Exist!"));
+
+           if (fromaccount.getAmount() < transferRequest.getAmount()) {
+			return new ResponseEntity<String>("Fail -> Funds not available", HttpStatus.BAD_REQUEST);
+		}
+           transfer(fromaccount, toaccount,transferRequest.getAmount());
+
+
+           accountRepository.save(toaccount);
+
+           accountRepository.save(fromaccount);
+
+           Transactions toUser = new Transactions();
+           toUser.setTranstype(Transactions.TransType.FROMACCOUNT);
+           toUser.setDescription(Transactions.TransType.FROMACCOUNT +"("+ fromaccount.getAccountno() +")");
+           toUser.setCredit(transferRequest.getAmount());
+           //toUser.setDebit(0);
+           toUser.setUserAccount(toaccount);
+           toUser.setBalance(toaccount.getAmount());
+          // transRepository.save(new Transactions(Transactions.TransType.FROMACCOUNT,Transactions.TransType.FROMACCOUNT + fromaccount.getAccountno(), transferRequest.getAmount(),0.00,toaccount.getAmount(), toaccount.getUser()));
+
+          // transRepository.save(new Transactions(Transactions.TransType.TOACCOUNT,0.00,transferRequest.getAmount(),fromaccount.getAmount(), fromaccount.getUser()));
+
+           Transactions fromUser = new Transactions();
+           fromUser.setTranstype(Transactions.TransType.TOACCOUNT);
+           fromUser.setDescription(Transactions.TransType.TOACCOUNT +"("+ toaccount.getAccountno() +")");
+           fromUser.setDebit(transferRequest.getAmount());
+           //toUser.setDebit(0);
+           fromUser.setUserAccount(fromaccount);
+           fromUser.setBalance(fromaccount.getAmount());
+           transRepository.save(toUser);
+           transRepository.save(fromUser);
+            return ResponseEntity.ok().body("Funds successfully transfered");
+	}
+
+
+
+       @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+       @PostMapping("/CrediCardPayment")
+	public ResponseEntity<String> CreditCardPayment(@Valid @RequestBody CreditCardPaymentRequest creditRequest) throws Exception {
+
+		if (!accountRepository.existsByAccountno(creditRequest.getSenderaccountno())) {
+			return new ResponseEntity<String>("Fail -> Sender Account Does Not Exist!", HttpStatus.BAD_REQUEST);
+		}
+
+		if (!creditcardRepository.existsByCreditcardno(creditRequest.getCreditcardno())) {
+			return new ResponseEntity<String>("Fail -> Credit Card Does Not Exist!", HttpStatus.BAD_REQUEST);
+		}
+
+	 UserAccount fromaccount = accountRepository.findByAccountno(creditRequest.getSenderaccountno())
+                	.orElseThrow(() ->
+                        new Exception("Sender Account Does Not Exist!"));
+
+
+         UserCreditCard creditcard = creditcardRepository.findByCreditcardno(creditRequest.getCreditcardno())
+                	.orElseThrow(() ->
+                        new Exception("Credit Card Does Not Exist!"));
+
+
+
+           if (fromaccount.getAmount() < creditRequest.getAmount()) {
+			return new ResponseEntity<String>("Fail -> Funds not available", HttpStatus.BAD_REQUEST);
+		}
+           creditcardpayment(fromaccount, creditcard,creditRequest.getAmount());
+
+
+           creditcardRepository.save(creditcard);
+
+           accountRepository.save(fromaccount);
+
+          // transRepository.save(new Transactions(Transactions.TransType.FROMACCOUNT, creditRequest.getAmount(),0.00,creditcard.getAmountavailable(), creditcard.getUser()));
+
+          //  transRepository.save(new Transactions(Transactions.TransType.CREDITCARD,0.00,creditRequest.getAmount(),fromaccount.getAmount(), fromaccount.getUser()));
+
+           Transactions creditcardtrans = new Transactions();
+           creditcardtrans.setTranstype(Transactions.TransType.FROMACCOUNT);
+           creditcardtrans.setDescription(Transactions.TransType.FROMACCOUNT +"("+ fromaccount.getAccountno() +")");
+           creditcardtrans.setCredit(creditRequest.getAmount());
+           //toUser.setDebit(0);
+           creditcardtrans.setUserCreditcard(creditcard);
+           creditcardtrans.setBalance(creditcard.getAmountavailable());
+
+
+           Transactions fromUser = new Transactions();
+           fromUser.setTranstype(Transactions.TransType.CREDITCARD);
+           fromUser.setDescription(Transactions.TransType.CREDITCARD +"("+ creditcard.getCreditcardno()+")");
+           fromUser.setDebit(creditRequest.getAmount()) ;
+           //toUser.setDebit(0);
+           fromUser.setUserAccount(fromaccount);
+           fromUser.setBalance(fromaccount.getAmount());
+
+
+           transRepository.save(creditcardtrans);
+           transRepository.save(fromUser);
+
+
+
+            return ResponseEntity.ok().body("$"+ creditRequest.getAmount() + " was successfully paid to CC no. " + "  " + creditcard.getCreditcardno());
+	}
+
+
+  private void deposit( UserAccount acct, double amount )
+  {
+
+    double balance = acct.getAmount();   // get the current balance
+    balance += amount;                    // adjust the balance
+    acct.setAmount( balance );           // set the new balance
+  }
+
+  private void deposit(UserCreditCard creditcard, double amount )
+  {
+
+    double creditlimit = creditcard.getAmountavailable();   // get the current creditlimit
+    double creditowed = creditcard.getAmountowned();   // get the current owed
+    creditlimit += amount;                    // adjust the creditlimit
+    creditowed  -= amount;                    // adjust the creditlimit
+    creditcard.setAmountavailable(creditlimit);// set the new creditlimit
+    creditcard.setAmountowned(creditowed);// set the new current owed
+
+  }
+
+ private void transfer( UserAccount fromAcct, UserAccount toAcct, double amount )
+  {
+    deposit( fromAcct, -amount );   // take money from one account
+    deposit( toAcct, amount );      // add the money to the other account
+  }
+
+ private void creditcardpayment( UserAccount fromAcct, UserCreditCard creditcard, double amount )
+  {
+    deposit( fromAcct, -amount );   // take money from one account
+    deposit( creditcard, amount );      // add the money to the other account
+  }
+
+
 }

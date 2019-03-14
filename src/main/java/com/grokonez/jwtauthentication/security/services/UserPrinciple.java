@@ -67,7 +67,7 @@ public class UserPrinciple implements UserDetails {
 	public UserPrinciple(Long id, String firstname, String lastname, String username ,
 			 String email, String question1, String answer1,
 			String question2, String answer2, String password, String address, String city, String province, String zip,
-			String country, String mobile, String landline,UserCreditCard userCreditcard,UserAccount userAcouunt, Collection<? extends GrantedAuthority> authorities) {
+			String country, String mobile, String landline,UserCreditCard userCreditcard,UserAccount userAccount, Collection<? extends GrantedAuthority> authorities) {
 
 		this.id = id;
 		this.firstname = firstname;
@@ -88,10 +88,9 @@ public class UserPrinciple implements UserDetails {
 		this.zip = zip;
 		this.mobile = mobile;
 		this.landline = landline;
-		this.userAccount = userAccount;
-		this.userCreditCard = userCreditcard;
-
 		this.authorities = authorities;
+                this.userAccount = userAccount;
+                this.userCreditCard = userCreditcard;
 	}
 
 	public static UserPrinciple build(User user) {
@@ -161,45 +160,7 @@ public class UserPrinciple implements UserDetails {
 		this.landline = landline;
 	}
 
-	/*public String getCreditcarno() {
-		return creditcarno;
-	}
-
-	public void setCreditcarno(String creditcarno) {
-		this.creditcarno = creditcarno;
-	}*/
-
-	/*public String getAccountno() {
-		return accountno;
-	}
-
-	public void setAccountno(String accountno) {
-		this.accountno = accountno;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	/*public int getCreditbalanceavailable() {
-		return creditbalanceavailable;
-	}
-
-	public void setCreditbalanceavailable(int creditbalanceavailable) {
-		this.creditbalanceavailable = creditbalanceavailable;
-	}
-
-	public int getCreditbalanceowned() {
-		return creditbalanceowned;
-	}
-
-	public void setCreditbalanceowned(int creditbalanceowned) {
-		this.creditbalanceowned = creditbalanceowned;
-	}*/
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -292,6 +253,14 @@ public class UserPrinciple implements UserDetails {
 
         public void setUserCreditCard(UserCreditCard userCreditCard) {
             this.userCreditCard = userCreditCard;
+        }
+
+        public UserAccount getUserAccount() {
+            return userAccount;
+        }
+
+        public void setUserAccount(UserAccount userAccount) {
+            this.userAccount = userAccount;
         }
 
         

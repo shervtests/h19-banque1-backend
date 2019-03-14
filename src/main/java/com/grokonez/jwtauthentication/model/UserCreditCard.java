@@ -7,12 +7,15 @@ package com.grokonez.jwtauthentication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -29,19 +32,23 @@ public class UserCreditCard {
     private String cvv;
     @JsonIgnore
     private String expiryDate;
-    private int amountavailable;
-    private int amountowned;
+    private double amountavailable = 0.00;
+    private double amountowned = 0.00;
     
     @JsonIgnoreProperties("userCreditCard")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,  mappedBy = "userCreditcard" )
+      @JsonIgnoreProperties("userCreditcard")
+    private Set<Transactions> transactions;
     
     public UserCreditCard() {
     }
 
-    public UserCreditCard(String creditcardno, String cvv, String expiryDate, int amountavailable, int amountowned) {  
+    public UserCreditCard(String creditcardno, String cvv, String expiryDate, double amountavailable, double amountowned) {  
         this.creditcardno = creditcardno;
         this.cvv = cvv;
         this.expiryDate = expiryDate;
@@ -81,19 +88,19 @@ public class UserCreditCard {
         this.expiryDate = expiryDate;
     }
 
-    public int getAmountavailable() {
+    public double getAmountavailable() {
         return amountavailable;
     }
 
-    public void setAmountavailable(int amountavailable) {
+    public void setAmountavailable(double amountavailable) {
         this.amountavailable = amountavailable;
     }
 
-    public int getAmountowned() {
+    public double getAmountowned() {
         return amountowned;
     }
 
-    public void setAmountowned(int amountowned) {
+    public void setAmountowned(double amountowned) {
         this.amountowned = amountowned;
     }
 
@@ -103,6 +110,14 @@ public class UserCreditCard {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transactions> transactions) {
+        this.transactions = transactions;
     }
     
     

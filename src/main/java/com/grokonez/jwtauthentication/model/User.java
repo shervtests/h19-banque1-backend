@@ -1,7 +1,6 @@
 package com.grokonez.jwtauthentication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -14,14 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
@@ -120,6 +117,11 @@ public class User{
     @JsonIgnoreProperties("user")
     private UserAccount userAccount; 
      
+    /*@OneToMany(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,  mappedBy = "user" )
+      @JsonIgnoreProperties("user")
+    private Set<Transactions> transactions;*/
+    
     public User() {}
 
     public User(String firstname,String lastname , String username, String email, String question1, String answer1, String question2, String answer2, String password) {
@@ -234,29 +236,7 @@ public class User{
         this.roles = roles;
     }
 
-   /* public String getAccountno() {
-        return accountno;
-    }
-
-    public void setAccountno(String accountno) {
-        this.accountno = accountno;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    /*public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String Status) {
-        this.Status = Status;
-    }*/
+  
 
     public String getAddress() {
         return address;
@@ -314,48 +294,14 @@ public class User{
         this.mobile = mobile;
     }
 
-  /*  public String getCreditcardno() {
-        return creditcardno;
+   /* public Set<Transactions> getTransactions() {
+        return transactions;
     }
 
-    public void setCreditcardno(String creditcardno) {
-        this.creditcardno = creditcardno;
-    }
-
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
-    }
-
-  
-
-    public int getCreditbalanceavailable() {
-        return creditbalanceavailable;
-    }
-
-    public void setCreditbalanceavailable(int creditbalanceavailable) {
-        this.creditbalanceavailable = creditbalanceavailable;
-    }
-
-    public int getCreditbalanceowned() {
-        return creditbalanceowned;
-    }
-
-    public void setCreditbalanceowned(int creditbalanceowned) {
-        this.creditbalanceowned = creditbalanceowned;
-    }
-
-    public String getExpirydate() {
-        return expirydate;
-    }
-
-    public void setExpirydate(String expirydate) {
-        this.expirydate = expirydate;
+    public void setTransactions(Set<Transactions> transactions) {
+        this.transactions = transactions;
     }*/
-
+    
     public UserCreditCard getUserCreditCard() {
         return userCreditCard;
     }

@@ -6,12 +6,15 @@
 package com.grokonez.jwtauthentication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -24,15 +27,19 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
     private String accountno;
-    private int amount;
+    private double amount = 0.00;
   
     @JsonIgnoreProperties("userAccount")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+     
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,  mappedBy = "userAccount" )
+      @JsonIgnoreProperties("userAccount")
+    private Set<Transactions> transactions;
       
-      
-    public UserAccount(long Id, String accountno, int amount) {
+    public UserAccount(long Id, String accountno, double amount) {
         this.Id = Id;
         this.accountno = accountno;
         this.amount = amount;
@@ -57,11 +64,11 @@ public class UserAccount {
         this.accountno = accountno;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -73,10 +80,15 @@ public class UserAccount {
         this.user = user;
     }
 
+    public Set<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transactions> transactions) {
+        this.transactions = transactions;
+    }
+
  
     
-    
-    
-   
     
 }
