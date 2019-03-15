@@ -235,7 +235,7 @@ public class AuthRestAPIs {
 		return ResponseEntity.ok().body("User registered successfully!");
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.GET, value = "/searchusers")
 	@ResponseBody
 	public List<User> search(@RequestParam(value = "search") String search) {
