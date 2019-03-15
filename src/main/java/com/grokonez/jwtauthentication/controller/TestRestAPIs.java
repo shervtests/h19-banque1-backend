@@ -116,7 +116,7 @@ public class TestRestAPIs {
     }
 
     // Use to get information about login user with token
-	@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/usersU")
     public Principal usersU(Principal user) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -124,7 +124,7 @@ public class TestRestAPIs {
     }
 
 	// Use to get information about login user with token
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/usersA")
 	public Principal usersA(Principal user) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

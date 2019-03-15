@@ -20,6 +20,8 @@ public class UserPrinciple implements UserDetails {
 
 	private Long id;
 
+	private String company;
+
 	private String firstname;
 
 	private String lastname;
@@ -41,14 +43,14 @@ public class UserPrinciple implements UserDetails {
 
 	private String mobile;
 
-       private UserCreditCard userCreditCard;
-       private UserAccount userAccount;
+	private UserCreditCard userCreditCard;
+	private UserAccount userAccount;
 	private String landline;
 	//private String creditcarno;
 	/*private String accountno;
 	private int amount;*/
-        
-        
+
+
 	//private int creditbalanceavailable;
 	//private int creditbalanceowned;
 
@@ -64,12 +66,13 @@ public class UserPrinciple implements UserDetails {
 
 	private String address;
 
-	public UserPrinciple(Long id, String firstname, String lastname, String username ,
-			 String email, String question1, String answer1,
-			String question2, String answer2, String password, String address, String city, String province, String zip,
-			String country, String mobile, String landline,UserCreditCard userCreditcard,UserAccount userAccount, Collection<? extends GrantedAuthority> authorities) {
+	public UserPrinciple(Long id, String company, String firstname, String lastname, String username ,
+						 String email, String question1, String answer1,
+						 String question2, String answer2, String password, String address, String city, String province, String zip,
+						 String country, String mobile, String landline,UserCreditCard userCreditcard,UserAccount userAccount, Collection<? extends GrantedAuthority> authorities) {
 
 		this.id = id;
+		this.company = company;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
@@ -89,16 +92,16 @@ public class UserPrinciple implements UserDetails {
 		this.mobile = mobile;
 		this.landline = landline;
 		this.authorities = authorities;
-                this.userAccount = userAccount;
-                this.userCreditCard = userCreditcard;
+		this.userAccount = userAccount;
+		this.userCreditCard = userCreditcard;
 	}
 
 	public static UserPrinciple build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
-		return new UserPrinciple(user.getId(), user.getFirstname(), user.getLastname(), user.getUsername(),
-				 user.getEmail(),
+		return new UserPrinciple(user.getId(), user.getCompany(), user.getFirstname(), user.getLastname(), user.getUsername(),
+				user.getEmail(),
 				user.getQuestion1(), user.getAnswer1(), user.getQuestion2(), user.getAnswer2(), user.getPassword(),
 				user.getAddress(), user.getCity(), user.getProvince(), user.getZip(), user.getCountry(),
 				user.getMobile(), user.getLandline(),user.getUserCreditCard(),user.getUserAccount(),authorities);
@@ -160,7 +163,7 @@ public class UserPrinciple implements UserDetails {
 		this.landline = landline;
 	}
 
-	
+
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -168,6 +171,10 @@ public class UserPrinciple implements UserDetails {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 	public void setFirstname(String firstname) {
@@ -218,6 +225,10 @@ public class UserPrinciple implements UserDetails {
 		return firstname;
 	}
 
+	public String getCompany() {
+		return company;
+	}
+
 	public String getLastname() {
 		return lastname;
 	}
@@ -247,23 +258,23 @@ public class UserPrinciple implements UserDetails {
 		return username;
 	}
 
-        public UserCreditCard getUserCreditCard() {
-            return userCreditCard;
-        }
+	public UserCreditCard getUserCreditCard() {
+		return userCreditCard;
+	}
 
-        public void setUserCreditCard(UserCreditCard userCreditCard) {
-            this.userCreditCard = userCreditCard;
-        }
+	public void setUserCreditCard(UserCreditCard userCreditCard) {
+		this.userCreditCard = userCreditCard;
+	}
 
-        public UserAccount getUserAccount() {
-            return userAccount;
-        }
+	public UserAccount getUserAccount() {
+		return userAccount;
+	}
 
-        public void setUserAccount(UserAccount userAccount) {
-            this.userAccount = userAccount;
-        }
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
 
-        
+
 	@Override
 	public String getPassword() {
 		return password;
