@@ -35,10 +35,11 @@ public class UserCreditCard {
     private String expiryDate;
     private double amountavailable = 0.00;
     private double amountowned = 0.00;
+    private double creditLimit = 0.00;
     
     @JsonIgnoreProperties("userCreditCard")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
     
     @OneToMany(fetch = FetchType.LAZY,
@@ -49,12 +50,13 @@ public class UserCreditCard {
     public UserCreditCard() {
     }
 
-    public UserCreditCard(String creditcardno, String cvv, String expiryDate, double amountavailable, double amountowned) {  
+    public UserCreditCard(String creditcardno, String cvv, String expiryDate, double amountavailable, double amountowned, double creditLimit) {
         this.creditcardno = creditcardno;
         this.cvv = cvv;
         this.expiryDate = expiryDate;
         this.amountavailable = amountavailable;
         this.amountowned = amountowned;
+        this.creditLimit = creditLimit;
     }
 
     public Long getId() {
@@ -103,6 +105,14 @@ public class UserCreditCard {
 
     public void setAmountowned(double amountowned) {
         this.amountowned = amountowned;
+    }
+
+    public double getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(double creditLimit) {
+        this.creditLimit = creditLimit;
     }
 
     public User getUser() {

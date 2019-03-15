@@ -38,7 +38,11 @@ public class User{
     private Long id;
 
 
+
     @Size(min=3, max = 50)
+    private String company;
+
+	@Size(min=3, max = 50)
     private String firstname;
     @NotBlank
     @Size(min=3, max = 50)
@@ -124,7 +128,8 @@ public class User{
     
     public User() {}
 
-    public User(String firstname,String lastname , String username, String email, String question1, String answer1, String question2, String answer2, String password) {
+    public User(String company, String firstname,String lastname , String username, String email, String question1, String answer1, String question2, String answer2, String password) {
+        this.company = company;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -203,6 +208,13 @@ public class User{
         this.firstname = firstname;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     public String getLastname() {
         return lastname;
