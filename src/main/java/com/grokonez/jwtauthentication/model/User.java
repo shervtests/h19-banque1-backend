@@ -37,6 +37,9 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min=3, max = 50)
+    private String company;
+
 
     @Size(min=3, max = 50)
     private String firstname;
@@ -65,7 +68,6 @@ public class User{
     private String question1;
     
     @NotBlank
-    @Size(min=6, max = 100)
     private String answer1;
     
     @NotBlank
@@ -73,7 +75,6 @@ public class User{
     private String question2;
     
     @NotBlank
-    @Size(min=6, max = 100)
     private String answer2;
 
    /* private String accountno;
@@ -103,8 +104,8 @@ public class User{
     	joinColumns = @JoinColumn(name = "user_id"), 
     	inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-    
-     @OneToOne(fetch = FetchType.LAZY,
+
+    @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "user")
     @JsonIgnoreProperties("user")
@@ -124,7 +125,8 @@ public class User{
     
     public User() {}
 
-    public User(String firstname,String lastname , String username, String email, String question1, String answer1, String question2, String answer2, String password) {
+    public User(String company, String firstname,String lastname , String username, String email, String question1, String answer1, String question2, String answer2, String password) {
+        this.company = company;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -203,6 +205,13 @@ public class User{
         this.firstname = firstname;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
 
     public String getLastname() {
         return lastname;

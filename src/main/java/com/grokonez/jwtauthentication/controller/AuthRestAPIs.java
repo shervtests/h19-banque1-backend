@@ -201,7 +201,7 @@ public class AuthRestAPIs {
 
 
         // Creating user's account
-        User user = new User(signUpRequest.getFirstname(),signUpRequest.getLastname(), signUpRequest.getUsername(), signUpRequest.getEmail(),
+        User user = new User(signUpRequest.getCompany(), signUpRequest.getFirstname(),signUpRequest.getLastname(), signUpRequest.getUsername(), signUpRequest.getEmail(),
                 signUpRequest.getQuestion1(), signUpRequest.getAnswer1(), signUpRequest.getQuestion2(),
                 signUpRequest.getAnswer2(), encoder.encode(signUpRequest.getPassword()));
         UserCreditCard userCreditCard = new UserCreditCard();

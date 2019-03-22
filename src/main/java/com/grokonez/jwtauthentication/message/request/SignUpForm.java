@@ -5,11 +5,12 @@ import java.util.Set;
 import javax.validation.constraints.*;
 
 public class SignUpForm {
-    @NotBlank
+    @Size(min = 3, max = 50)
+    private String company;
+
     @Size(min = 3, max = 50)
     private String firstname;
 
-    @NotBlank
     @Size(min = 3, max = 50)
     private String lastname;
 
@@ -42,11 +43,14 @@ public class SignUpForm {
     
     private String address;
    @Digits (integer = 999, fraction = 2) 
-    private double amount ;
+    private double amount = 0;
    @Digits (integer = 999, fraction = 2) 
     private double creditbalanceavailable = 0;
    @Digits (integer = 999, fraction = 2) 
     private double creditbalanceowned =  0;
+    @Digits (integer = 999, fraction = 2)
+    private double creditLimit =  0;
+
 
     public double getAmount() {
         return amount;
@@ -72,7 +76,14 @@ public class SignUpForm {
         this.creditbalanceowned = creditbalanceowned;
     }
 
- 
+    public double getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(double creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -180,6 +191,14 @@ public class SignUpForm {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getLastname() {

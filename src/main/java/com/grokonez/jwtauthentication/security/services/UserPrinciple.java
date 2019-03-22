@@ -20,6 +20,8 @@ public class UserPrinciple implements UserDetails {
 
 	private Long id;
 
+	private String company;
+
 	private String firstname;
 
 	private String lastname;
@@ -64,12 +66,13 @@ public class UserPrinciple implements UserDetails {
 
 	private String address;
 
-	public UserPrinciple(Long id, String firstname, String lastname, String username ,
+	public UserPrinciple(Long id, String company, String firstname, String lastname, String username ,
 			 String email, String question1, String answer1,
 			String question2, String answer2, String password, String address, String city, String province, String zip,
 			String country, String mobile, String landline,UserCreditCard userCreditcard,UserAccount userAccount, Collection<? extends GrantedAuthority> authorities) {
 
 		this.id = id;
+		this.company = company;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
@@ -97,7 +100,7 @@ public class UserPrinciple implements UserDetails {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
-		return new UserPrinciple(user.getId(), user.getFirstname(), user.getLastname(), user.getUsername(),
+		return new UserPrinciple(user.getId(), user.getCompany(), user.getFirstname(), user.getLastname(), user.getUsername(),
 				 user.getEmail(),
 				user.getQuestion1(), user.getAnswer1(), user.getQuestion2(), user.getAnswer2(), user.getPassword(),
 				user.getAddress(), user.getCity(), user.getProvince(), user.getZip(), user.getCountry(),
@@ -170,6 +173,10 @@ public class UserPrinciple implements UserDetails {
 		this.id = id;
 	}
 
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
@@ -212,6 +219,10 @@ public class UserPrinciple implements UserDetails {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getCompany() {
+		return company;
 	}
 
 	public String getFirstname() {
