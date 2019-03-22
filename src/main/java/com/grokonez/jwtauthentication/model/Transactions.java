@@ -22,6 +22,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.print.attribute.standard.DateTimeAtCompleted;
+import javax.validation.constraints.Digits;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -42,8 +43,11 @@ public class Transactions {
     private TransType Transtype;
     
     private String Description;
+     @Digits (integer = 999, fraction = 2) 
     private double credit;
+      @Digits (integer = 999, fraction = 2) 
     private double debit  ;
+       @Digits (integer = 999, fraction = 2) 
     private double balance;
     
     @Column(nullable = false, updatable = false)
@@ -160,7 +164,8 @@ public class Transactions {
     FROMACCOUNT,
     TOACCOUNT,
     CREDITCARD,
-    OTHERBANK,
+    FROMOTHERBANK,
+    TOOTHERBANK,
     WITHDRAWAL,
     DEPOSIT
 }

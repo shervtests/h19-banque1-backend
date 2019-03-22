@@ -5,6 +5,7 @@
  */
 package com.grokonez.jwtauthentication.message.request;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -15,31 +16,30 @@ import javax.validation.constraints.Size;
 public class TransferRequest {
     @NotBlank
     @Size(min=3, max = 60)
-    private String senderaccountno;
+    private String senderAccountNo;
     
     @NotBlank
     @Size(min=3, max = 60)
-    private String receiveraccountno;
-
+    private String receiverAccountNo;
+    @Digits (integer = 999, fraction = 2) 
     private double amount;
 
-    public String getSenderaccountno() {
-        return senderaccountno;
+    public String getSenderAccountNo() {
+        return senderAccountNo;
     }
 
-    public void setSenderaccountno(String senderaccountno) {
-        this.senderaccountno = senderaccountno;
+    public void setSenderAccountNo(String senderAccountNo) {
+        this.senderAccountNo = senderAccountNo;
     }
 
-    public String getReceiveraccountno() {
-        return receiveraccountno;
+    public String getReceiverAccountNo() {
+        return receiverAccountNo;
     }
 
-    public void setReceiveraccountno(String receiveraccountno) {
-        this.receiveraccountno = receiveraccountno;
+    public void setReceiverAccountNo(String receiverAccountNo) {
+        this.receiverAccountNo = receiverAccountNo;
     }
-
-
+    
     public double getAmount() {
         return amount;
     }

@@ -5,6 +5,7 @@
  */
 package com.grokonez.jwtauthentication.message.request;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -20,7 +21,7 @@ public class CreditCardPaymentRequest {
     @NotBlank
     @Size(min=3, max = 60)
     private String creditcardno;
-
+    @Digits (integer = 999, fraction = 2) 
     private double amount; 
 
     public String getSenderaccountno() {
