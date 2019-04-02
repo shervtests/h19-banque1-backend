@@ -9,7 +9,6 @@ public class VerifyLogin1 {
     private String question1;
 
     @NotBlank
-    @Size(min = 6, max = 100)
     private String answer1;
 
 	public String getQuestion1() {

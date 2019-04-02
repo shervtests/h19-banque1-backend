@@ -26,25 +26,23 @@ import org.hibernate.annotations.NaturalId;
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
-            "username"
+                "username"
         }),
         @UniqueConstraint(columnNames = {
-            "email"
+                "email"
         })
 })
 public class User{
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min=3, max = 50)
+
+
     private String company;
 
-
-    @Size(min=3, max = 50)
     private String firstname;
-    @NotBlank
-    @Size(min=3, max = 50)
+
     private String lastname;
 
 
@@ -62,47 +60,47 @@ public class User{
     @NotBlank
     @Size(min=8, max = 100)
     private String password;
-    
+
     @NotBlank
     @Size(min=6, max = 100)
     private String question1;
-    
+
     @NotBlank
     private String answer1;
-    
+
     @NotBlank
     @Size(min=6, max = 100)
     private String question2;
-    
+
     @NotBlank
     private String answer2;
 
    /* private String accountno;
     private int amount;*/
     //private String Status;
-   
-    
+
+
     private String address;
-     
+
     private String city;
     private String province;
     private String country;
     private String zip;
     private String landline;
     private String mobile;
-    
+
    /* private String creditcardno;
     private String cvv;
-    
+
     private String expirydate;
-    
+
     private int creditbalanceavailable;
     private int creditbalanceowned;*/
-    
+
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles", 
-    	joinColumns = @JoinColumn(name = "user_id"), 
-    	inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     @OneToOne(fetch = FetchType.LAZY,
@@ -110,8 +108,8 @@ public class User{
             mappedBy = "user")
     @JsonIgnoreProperties("user")
     private UserCreditCard userCreditCard;
-    
-     
+
+
     @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "user")
@@ -122,7 +120,7 @@ public class User{
             cascade =  CascadeType.ALL,  mappedBy = "user" )
       @JsonIgnoreProperties("user")
     private Set<Transactions> transactions;*/
-    
+
     public User() {}
 
     public User(String company, String firstname,String lastname , String username, String email, String question1, String answer1, String question2, String answer2, String password) {
@@ -136,7 +134,7 @@ public class User{
         this.question2 = question2;
         this.answer2 = answer2;
         this.password = password;
-        
+
     }
 
     public UserAccount getUserAccount() {
@@ -147,41 +145,41 @@ public class User{
         this.userAccount = userAccount;
     }
 
- 
+
 
     public String getQuestion2() {
-		return question2;
-	}
+        return question2;
+    }
 
-	public void setQuestion2(String question2) {
-		this.question2 = question2;
-	}
+    public void setQuestion2(String question2) {
+        this.question2 = question2;
+    }
 
-	public String getAnswer2() {
-		return answer2;
-	}
+    public String getAnswer2() {
+        return answer2;
+    }
 
-	public void setAnswer2(String answer2) {
-		this.answer2 = answer2;
-	}
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
+    }
 
-	public String getAnswer1() {
-		return answer1;
-	}
+    public String getAnswer1() {
+        return answer1;
+    }
 
-	public void setAnswer1(String answer1) {
-		this.answer1 = answer1;
-	}
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
 
-	public String getQuestion1() {
-		return question1;
-	}
+    public String getQuestion1() {
+        return question1;
+    }
 
-	public void setQuestion1(String question1) {
-		this.question1 = question1;
-	}
+    public void setQuestion1(String question1) {
+        this.question1 = question1;
+    }
 
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -245,7 +243,7 @@ public class User{
         this.roles = roles;
     }
 
-  
+
 
     public String getAddress() {
         return address;
@@ -310,7 +308,7 @@ public class User{
     public void setTransactions(Set<Transactions> transactions) {
         this.transactions = transactions;
     }*/
-    
+
     public UserCreditCard getUserCreditCard() {
         return userCreditCard;
     }
@@ -318,7 +316,7 @@ public class User{
     public void setUserCreditCard(UserCreditCard userCreditCard) {
         this.userCreditCard = userCreditCard;
     }
-    
-    
-    
+
+
+
 }

@@ -16,28 +16,28 @@ import javax.validation.constraints.Size;
 public class CreditCardPaymentRequest {
     @NotBlank
     @Size(min=3, max = 60)
-    private String senderaccountno;
+    private String senderAccountNo;
     
     @NotBlank
     @Size(min=3, max = 60)
-    private String creditcardno;
+    private String creditCardNo;
     @Digits (integer = 999, fraction = 2) 
-    private double amount; 
+    private double amount;
 
-    public String getSenderaccountno() {
-        return senderaccountno;
+    public String getCreditCardNo() {
+        return creditCardNo;
     }
 
-    public void setSenderaccountno(String senderaccountno) {
-        this.senderaccountno = senderaccountno;
+    public void setCreditCardNo(String creditCardNo) {
+        this.creditCardNo = creditCardNo;
     }
 
-    public String getCreditcardno() {
-        return creditcardno;
+    public String getSenderAccountNo() {
+        return senderAccountNo;
     }
 
-    public void setCreditcardno(String creditcardno) {
-        this.creditcardno = creditcardno;
+    public void setSenderAccountNo(String senderAccountNo) {
+        this.senderAccountNo = senderAccountNo;
     }
 
     public double getAmount() {

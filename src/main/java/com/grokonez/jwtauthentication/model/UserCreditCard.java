@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,6 +39,7 @@ public class UserCreditCard {
     private double amountavailable = 0.00;
     @Digits (integer = 999, fraction = 2) 
     private double amountowned = 0.00;
+    @Column(nullable = true)
     @Digits (integer = 999, fraction = 2)
     private double creditLimit = 0.00;
     
@@ -60,7 +62,7 @@ public class UserCreditCard {
         this.expiryDate = expiryDate;
         this.amountavailable = amountavailable;
         this.amountowned = amountowned;
-        this.creditLimit = creditlimit;
+        this.creditLimit = creditLimit;
     }
 
     public Long getId() {

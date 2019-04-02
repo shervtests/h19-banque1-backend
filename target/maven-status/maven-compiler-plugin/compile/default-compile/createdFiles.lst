@@ -10,6 +10,7 @@ com\grokonez\jwtauthentication\message\request\VerifyLogin1.class
 com\grokonez\jwtauthentication\model\RoleName.class
 com\grokonez\jwtauthentication\security\jwt\JwtAuthTokenFilter.class
 com\grokonez\jwtauthentication\message\request\OtherBankTransferRequest.class
+com\grokonez\jwtauthentication\model\Transactions$TransStatus.class
 com\grokonez\jwtauthentication\message\request\VerifyLogin2.class
 com\grokonez\jwtauthentication\message\response\JwtResponse.class
 com\grokonez\jwtauthentication\repository\UserCreditCardRepository.class
@@ -17,6 +18,7 @@ com\grokonez\jwtauthentication\message\request\TransferRequest.class
 com\grokonez\jwtauthentication\specification\UserSpecification.class
 com\grokonez\jwtauthentication\Utils\SearchOperation.class
 com\grokonez\jwtauthentication\repository\TransactionsRepository.class
+com\grokonez\jwtauthentication\controller\PaymentGatewayAPIs.class
 com\grokonez\jwtauthentication\repository\RoleRepository.class
 com\grokonez\jwtauthentication\repository\UserRepository.class
 com\grokonez\jwtauthentication\repository\testRepository.class
@@ -27,11 +29,16 @@ com\grokonez\jwtauthentication\message\request\SignUpForm.class
 com\grokonez\jwtauthentication\security\jwt\JwtProvider.class
 com\grokonez\jwtauthentication\model\User.class
 com\grokonez\jwtauthentication\repository\UserAccountRepository.class
+com\grokonez\jwtauthentication\message\request\PaymentGatewayRequest.class
+com\grokonez\jwtauthentication\Utils\TransactionsHelper.class
 com\grokonez\jwtauthentication\model\UserCreditCard.class
 com\grokonez\jwtauthentication\model\SearchCriteria.class
 com\grokonez\jwtauthentication\security\services\UserDetailsServiceImpl.class
 com\grokonez\jwtauthentication\message\request\CreditCardPaymentRequest.class
 com\grokonez\jwtauthentication\model\UserAccount.class
+com\grokonez\jwtauthentication\message\request\ProcessRequest.class
 com\grokonez\jwtauthentication\SpringBootJwtAuthenticationApplication.class
+com\grokonez\jwtauthentication\message\response\Response.class
 com\grokonez\jwtauthentication\message\request\LoginForm.class
 com\grokonez\jwtauthentication\security\WebSecurityConfig.class
+com\grokonez\jwtauthentication\cronjob\CronJob.class

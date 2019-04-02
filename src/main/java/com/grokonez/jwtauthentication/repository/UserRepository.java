@@ -17,5 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> ,JpaSpecificat
     Boolean existsByAnswer1(String answer1);
     Boolean existsByQuestion2(String question2);
     Boolean existsByAnswer2(String answer2);
+    Boolean existsByFirstnameAndLastname(String FirstName, String Lastname);
     
 }

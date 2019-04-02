@@ -18,6 +18,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -53,7 +54,39 @@ public class Utils {
         return strDate;
     }
     
-     
-       
+   
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+    long diffInMillies = date2.getTime() - date1.getTime();
+    return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+}
+    
+    public static int  getPasswordCharaters (String password)      
+    {
+        int numOfSpecial = 0;
+        int numOfLetters = 0;
+        int numOfDigits = 0;
+        int totalCharacter = 0;
+
+        byte[] bytes = password.getBytes();
+        for (byte tempByte : bytes) {
+            if (tempByte >= 33 && tempByte <= 47) {
+                numOfSpecial++;
+                totalCharacter++;
+            }
+
+            char tempChar = (char) tempByte;
+            if (Character.isDigit(tempChar)) {
+                numOfDigits++;
+                totalCharacter++;
+            }
+
+            if (Character.isLetter(tempChar)) {
+                numOfLetters++;
+                totalCharacter++;
+            }
+
+        }
+        return totalCharacter;
+    }
 	   
 }
