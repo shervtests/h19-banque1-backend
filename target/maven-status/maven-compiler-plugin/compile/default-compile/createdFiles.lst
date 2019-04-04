@@ -21,6 +21,8 @@ com\grokonez\jwtauthentication\repository\TransactionsRepository.class
 com\grokonez\jwtauthentication\controller\PaymentGatewayAPIs.class
 com\grokonez\jwtauthentication\repository\RoleRepository.class
 com\grokonez\jwtauthentication\repository\UserRepository.class
+com\grokonez\jwtauthentication\message\response\InfoResponse.class
+com\grokonez\jwtauthentication\message\request\ForgetPasswordRequest.class
 com\grokonez\jwtauthentication\repository\testRepository.class
 com\grokonez\jwtauthentication\Utils\CreditCardNumberGenerator.class
 com\grokonez\jwtauthentication\specification\UserSpecification$1.class

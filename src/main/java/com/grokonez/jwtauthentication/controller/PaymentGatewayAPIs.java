@@ -94,7 +94,7 @@ public class PaymentGatewayAPIs {
             List<UserCreditCard> results = creditcardRepository.findCreditcard(paymentRequest.getCcNumber(),paymentRequest.getCvv(),paymentRequest.getExpiryDate());
        
          if (results.isEmpty()) {
-            return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
+             return new ResponseEntity<Object>(new Response("","DECLINED"), HttpStatus.BAD_REQUEST);
         }
              
             UserCreditCard creditcard = null;
@@ -231,7 +231,7 @@ public class PaymentGatewayAPIs {
 
 
 
-                        return new ResponseEntity<String>(Otherbankresponse, HttpStatus.BAD_REQUEST);
+                        return new ResponseEntity<Object>(new Response("","DECLINED"), HttpStatus.BAD_REQUEST);
 
                     }
                   // Commited Transaction 
