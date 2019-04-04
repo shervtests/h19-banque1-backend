@@ -105,7 +105,7 @@ public class PaymentGatewayAPIs {
               return new ResponseEntity<Object>(new Response("","DECLINED-INSUFFICIANT-FUNDS"), HttpStatus.BAD_REQUEST);
         }
 
-        if (!creditcard.getUser().getFirstname().equalsIgnoreCase(paymentRequest.getFirstName())&& !creditcard.getUser().getLastname().equalsIgnoreCase(paymentRequest.getLastName())) {
+        if (!creditcard.getUser().getFirstname().equalsIgnoreCase(paymentRequest.getFirstName())|| !creditcard.getUser().getLastname().equalsIgnoreCase(paymentRequest.getLastName())) {
              return new ResponseEntity<Object>(new Response("","DECLINED"), HttpStatus.BAD_REQUEST);
         }  
           
